@@ -42,17 +42,30 @@ def webhook():
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
                         print 'message_text',messaging_event["message"]["text"].encode('UTF8')
+                        print 'senderid',sender_id
+                        print 'recipient_id',recipient_id
+                        answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ','我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎','.....什麼鬼拉XD']
+                        a=randint(0,len(answers)-1)
+                        send_message(sender_id, answers[a])
+
+                    elif "attachments" in messaging_event["message"].keys():
+                        if 'payload' in messaging_event["message"]["attachments"][0]:
+                            if 'coordinates' in messaging_event["message"]["attachments"][0]['payload']:
+                                longtitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['long']
+                                latitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['lat']
+                                data={}
+                                data['long']=longtitude
+                                data['lat']=latitude
+                                headers = {"Content-Type": "application/json"}
+                                r = requests.post("http://139.162.43.239/store/storeNearby", headers=headers, data=data)
+                                storename = r['top10'][0]
+                                print 'senderid',sender_id
+                                print 'recipient_id',recipient_id
+                                print 'storename',storename
+                                send_message(sender_id, storename)
                     else:
                         print 'no text'
-                    print 'senderid',sender_id
-                    print 'recipient_id',recipient_id
                     #print 'messaging_event["message"]',messaging_event["message"]
-
-                    #print 'message_text',message_text
-
-                    answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ','我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎','.....什麼鬼拉XD']
-                    a=randint(0,len(answers)-1)
-                    send_message(sender_id, answers[a])
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
