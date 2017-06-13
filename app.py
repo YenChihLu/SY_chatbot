@@ -56,8 +56,8 @@ def webhook():
                                 print 'longtitude',longitude
                                 print 'latitude',latitude
                                 data={}
-                                data['long']=longitude
-                                data['lat']=latitude
+                                data['longitude']=longitude
+                                data['latitude']=latitude
                                 headers = {"Content-Type": "application/json"}
                                 r = requests.post("http://139.162.43.239/store/storeNearby", headers=headers, data=data)
                                 print 'r',r
