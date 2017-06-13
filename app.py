@@ -60,9 +60,8 @@ def webhook():
                                 data['latitude']=latitude
                                 #headers = {"Content-Type": "application/json"}
                                 r = requests.post("http://139.162.43.239/store/storeNearby", data=data)#headers=headers,
-                                print 'r',r.text
-                                print json.loads(r)
-                                storename = r['top10'][0].encode('UTF8')
+                                print 'r',json.loads(r.text)
+                                storename = json.loads(r.text)['top10'][0].encode('UTF8')
                                 print 'senderid',sender_id
                                 print 'recipient_id',recipient_id
                                 #send_message(sender_id, 'done')
