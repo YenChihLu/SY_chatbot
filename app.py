@@ -39,11 +39,16 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"].encode('UTF8')  # the message's text
+                    message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
+                    if messaging_event["message"]["text"].encode('UTF8'):
+                        print 'message_text',message_text
+                    else:
+                        print 'no text'
                     print 'senderid',sender_id
                     print 'recipient_id',recipient_id
                     #print 'messaging_event["message"]',messaging_event["message"]
-                    print 'message_text',message_text
+
+                    #print 'message_text',message_text
 
                     answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ','我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎']
                     a=randint(0,len(answers)-1)
