@@ -61,7 +61,7 @@ def webhook():
                                 #headers = {"Content-Type": "application/json"}
                                 r = requests.post("http://139.162.43.239/store/storeNearby", data=data)#headers=headers,
                                 print 'r',r.text
-                                print json.dumps(r)
+                                print json.loads(r)
                                 storename = r['top10'][0].encode('UTF8')
                                 print 'senderid',sender_id
                                 print 'recipient_id',recipient_id
