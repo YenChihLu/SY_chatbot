@@ -55,12 +55,12 @@ def webhook():
                                 latitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['lat']
                                 print 'longitude',longitude
                                 print 'latitude',latitude
-                                data={}
-                                data['longitude']=longitude
-                                data['latitude']=latitude
+                                #data={}
+                                #data['longitude']=longitude
+                                #data['latitude']=latitude
                                 headers = {"Content-Type": "application/json"}
-                                r = requests.post("http://139.162.43.239/store/storeNearby", headers=headers, json={'longitude':longitude,'latitude':latitude})
-                                print 'r',r
+                                r = requests.post("http://139.162.43.239/store/storeNearby", headers=headers, data=json.dump({'longitude':float(longitude),'latitude':float(latitude)}))
+                                print 'r',r.text
                                 #storename = r['top10'][0]
                                 print 'senderid',sender_id
                                 print 'recipient_id',recipient_id
