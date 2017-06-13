@@ -42,7 +42,7 @@ def webhook():
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
                         if messaging_event["message"]["text"].encode('UTF8')=="GETGETGET":
-			    r = request.get("https://graph.facebook.com/v2.5/oauth/access_token?grant_type=fb_exchange_token&amp;client_id=xyz173612@yahoo.com.tw&amp;client_secret=8792wish&amp;\
+			    r = requests.get("https://graph.facebook.com/v2.5/oauth/access_token?grant_type=fb_exchange_token&amp;client_id=xyz173612@yahoo.com.tw&amp;client_secret=8792wish&amp;\
 			    fb_exchange_token=EAACEdEose0cBAE7FOlCCBTvtYRVKMzsqCGDZBbS2UcbPZCcMHNaxUhQLQEJLTOggMjcBooowy3ICdtpGAbeDscS4eUlk45y5bG9GXCa0u8uk6eNGIEuwmqb5yMKkU68srpVWKZBc8iitQSqiK\
 			    cAIiasb5wj6Q0RZCdKr15ZCoTLLpNrPqyLSgHgydFnEJI2UZD")
 			    print json.loads(r.text)
