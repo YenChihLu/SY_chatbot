@@ -69,6 +69,7 @@ def webhook():
                                 send_message(sender_id, storename)
                     else:
                         print 'no text'
+                        send_message(sender_id, 'in else')
                     #print 'messaging_event["message"]',messaging_event["message"]
 
                 if messaging_event.get("delivery"):  # delivery confirmation
