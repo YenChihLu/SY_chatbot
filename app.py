@@ -40,7 +40,7 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
-                    #if "text" in messaging_event["message"].keys():
+                    if "text" in messaging_event["message"].keys():
                     #    if messaging_event["message"]["text"].encode('UTF8')=="GETGETGET":
 		    #	    r = requests.get("https://graph.facebook.com/v2.5/oauth/access_token?grant_type=fb_exchange_token&amp;client_id=xyz173612@yahoo.com.tw&amp;client_secret=8792wish&amp;\
 		    #	    fb_exchange_token=EAACEdEose0cBAE7FOlCCBTvtYRVKMzsqCGDZBbS2UcbPZCcMHNaxUhQLQEJLTOggMjcBooowy3ICdtpGAbeDscS4eUlk45y5bG9GXCa0u8uk6eNGIEuwmqb5yMKkU68srpVWKZBc8iitQSqiK\
@@ -48,7 +48,7 @@ def webhook():
 		    #	    print json.loads(r.text)
 		    #	    token = json.loads(r.text)['data'][0]['access_token']
 		    #	    send_message(sender_id,token)
-			print 'message_text',messaging_event["message"]["text"].encode('UTF8')
+		        print 'message_text',messaging_event["message"]["text"].encode('UTF8')
                         print 'senderid',sender_id
                         print 'recipient_id',recipient_id
                         answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ','我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎','.....什麼鬼拉XD']
