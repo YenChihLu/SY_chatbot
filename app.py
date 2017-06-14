@@ -46,10 +46,10 @@ def webhook():
                     if "text" in messaging_event["message"].keys():
                         if messaging_event["message"]["text"].encode('UTF8') in ['天氣','幹','靠','你老師']:
                             ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
-                            request = ai.text_request()
-                            request.lang = 'zh-TW'
-                            request.query=messaging_event["message"]["text"].encode('UTF8')
-                            response = request.getresponse()
+                            req = ai.text_request()
+                            req.lang = 'zh-TW'
+                            req.query=messaging_event["message"]["text"].encode('UTF8')
+                            response = req.getresponse()
                             print (response.read())
 
                         else:
