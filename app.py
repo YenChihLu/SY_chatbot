@@ -71,6 +71,23 @@ def webhook():
                                 print 'storename',storename
                                 send_message(sender_id, storename)
                                 return "ok", 200
+
+                            elif 'sticker_id' in messaging_event["message"]["attachments"][0]['payload']:
+                                print 'senderid',sender_id
+                                print 'recipient_id',recipient_id
+                                send_message(sender_id, '不要傳貼圖敷衍我')
+                                return "ok", 200
+
+                            else:
+                                send_message(sender_id, 'in else')
+
+                        elif messaging_event["message"]["attachments"][0]['payload']==None and 'title' in messaging_event["message"]["attachments"][0]:
+                            if messaging_event["message"]["attachments"][0]['title']=='Location sharing ended':
+                                send_message(sender_id, 'Location Sharing ended')
+                                return "ok", 200
+                            else:
+                                send_message(sender_id, 'in else')
+
                     else:
                         print 'no text'
                         send_message(sender_id, 'in else')
