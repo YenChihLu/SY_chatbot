@@ -56,12 +56,14 @@ def webhook():
                             if 'sticker_id' in messaging_event["message"]["attachments"][0]['payload']:
                                 print 'senderid',sender_id
                                 print 'recipient_id',recipient_id
-                                send_message(sender_id, '不要傳貼圖敷衍我')
+                                send_message(sender_id, '不要用貼圖敷衍我')
                                 return "ok", 200
                             else:
                                 print 'senderid',sender_id
                                 print 'recipient_id',recipient_id
-                                send_message(sender_id, '好圖好圖')
+                                answers=['好圖好圖','這照片是在哪裡拍的','這是誰啊']
+                                a=randint(0,len(answers)-1)
+                                send_message(sender_id, answers[a])
                                 return "ok", 200
 
                         elif messaging_event["message"]["attachments"][0]['type']=='location':
