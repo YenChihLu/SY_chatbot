@@ -6,8 +6,11 @@ import json
 from random import randint
 import requests
 from flask import Flask, request
+import apiai
 
 app = Flask(__name__)
+
+CLIENT_ACCESS_TOKEN = '13563fb8a99b41c2a0d5d28f6425c0eb'
 
 
 @app.route('/', methods=['GET'])
@@ -41,15 +44,24 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
-                        print 'message_text',messaging_event["message"]["text"].encode('UTF8')
-                        print 'senderid',sender_id
-                        print 'recipient_id',recipient_id
-                        answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ',\
-                                 '我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎','.....什麼鬼拉XD','也不是不可以拉','我真是榮幸= ='\
-                                 '誒 別鬧啊','我看得五味雜陳','手下留琴','饒了我吧','什麼巫術','用windows系統做開發好難','不要把我玩壞>///<','好茶好茶','有什麼建議嗎','我會幫你跟小編說']
-                        a=randint(0,len(answers)-1)
-                        send_message(sender_id, answers[a])
-                        return "ok", 200
+                        if messaging_event["message"]["text"].encode('UTF8') in ['天氣','幹','靠','你老師']:
+                            ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+                            request = ai.text_request()
+                            request.lang = 'zh-TW'
+                            request.query=messaging_event["message"]["text"].encode('UTF8')
+                            response = request.getresponse()
+                            print (response.read())
+                            
+                        else:
+                            print 'message_text',messaging_event["message"]["text"].encode('UTF8')
+                            print 'senderid',sender_id
+                            print 'recipient_id',recipient_id
+                            answers=['haha','朕乏了','快宣太醫','大膽','Hi 我是天皇','怎麼了嗎','哈哈哈','比較遠的廁所在哪','你知道嗎東湖的水真的很涼','我都8 9點才下班QQ',\
+                                     '我想一下','該怎麼說好呢','喂','嘎比舉','天氣好心情也會好 不是嗎','等一下我先去泡個茶','想喝茶嗎','.....什麼鬼拉XD','也不是不可以拉','我真是榮幸= ='\
+                                     '誒 別鬧啊','我看得五味雜陳','手下留琴','饒了我吧','什麼巫術','用windows系統做開發好難','不要把我玩壞>///<','好茶好茶','有什麼建議嗎','我會幫你跟小編說']
+                            a=randint(0,len(answers)-1)
+                            send_message(sender_id, answers[a])
+                            return "ok", 200
 
                     elif "attachments" in messaging_event["message"].keys():
                         if messaging_event["message"]["attachments"][0]['type']=='image':
