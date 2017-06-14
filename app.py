@@ -52,41 +52,41 @@ def webhook():
                         return "ok", 200
 
                     elif "attachments" in messaging_event["message"].keys():
-                        if 'payload' in messaging_event["message"]["attachments"][0]:
-                            if 'coordinates' in messaging_event["message"]["attachments"][0]['payload']:
-                                longitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['long']
-                                latitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['lat']
-                                print 'longitude',longitude
-                                print 'latitude',latitude
-                                data={}
-                                data['longitude']=longitude
-                                data['latitude']=latitude
-                                #headers = {"Content-Type": "application/json"}
-                                r = requests.post("http://139.162.43.239/store/storeNearby", data=data)#headers=headers,
-                                print 'r',json.loads(r.text)
-                                storename = json.loads(r.text)['top10'][0].encode('UTF8')
-                                print 'senderid',sender_id
-                                print 'recipient_id',recipient_id
-                                #send_message(sender_id, 'done')
-                                print 'storename',storename
-                                send_message(sender_id, storename)
-                                return "ok", 200
-
-                            elif 'sticker_id' in messaging_event["message"]["attachments"][0]['payload']:
-                                print 'senderid',sender_id
-                                print 'recipient_id',recipient_id
-                                send_message(sender_id, '不要傳貼圖敷衍我')
-                                return "ok", 200
-
-                            else:
-                                send_message(sender_id, 'in else')
-
-                        elif messaging_event["message"]["attachments"][0]['payload']==None and 'title' in messaging_event["message"]["attachments"][0]:
+                        if messaging_event["message"]["attachments"][0]['payload']==None and 'title' in messaging_event["message"]["attachments"][0]:
                             if messaging_event["message"]["attachments"][0]['title']=='Location sharing ended':
                                 send_message(sender_id, 'Location Sharing ended')
                                 return "ok", 200
                             else:
                                 send_message(sender_id, 'in else')
+
+
+                        elif 'coordinates' in messaging_event["message"]["attachments"][0]['payload']:
+                            longitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['long']
+                            latitude=messaging_event["message"]["attachments"][0]['payload']['coordinates']['lat']
+                            print 'longitude',longitude
+                            print 'latitude',latitude
+                            data={}
+                            data['longitude']=longitude
+                            data['latitude']=latitude
+                            #headers = {"Content-Type": "application/json"}
+                            r = requests.post("http://139.162.43.239/store/storeNearby", data=data)#headers=headers,
+                            print 'r',json.loads(r.text)
+                            storename = json.loads(r.text)['top10'][0].encode('UTF8')
+                            print 'senderid',sender_id
+                            print 'recipient_id',recipient_id
+                            #send_message(sender_id, 'done')
+                            print 'storename',storename
+                            send_message(sender_id, storename)
+                            return "ok", 200
+
+                        elif 'sticker_id' in messaging_event["message"]["attachments"][0]['payload']:
+                            print 'senderid',sender_id
+                            print 'recipient_id',recipient_id
+                            send_message(sender_id, '不要傳貼圖敷衍我')
+                            return "ok", 200
+
+                        else:
+                            send_message(sender_id, 'in else')
 
                     else:
                         print 'no text'
