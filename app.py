@@ -49,6 +49,7 @@ def webhook():
                                  '誒 別鬧啊','我看得五味雜陳','手下留琴','饒了我吧','什麼巫術','用windows系統做開發好難','不要把我玩壞>///<','']
                         a=randint(0,len(answers)-1)
                         send_message(sender_id, answers[a])
+                        return "ok", 200
 
                     elif "attachments" in messaging_event["message"].keys():
                         if 'payload' in messaging_event["message"]["attachments"][0]:
@@ -69,6 +70,7 @@ def webhook():
                                 #send_message(sender_id, 'done')
                                 print 'storename',storename
                                 send_message(sender_id, storename)
+                                return "ok", 200
                     else:
                         print 'no text'
                         send_message(sender_id, 'in else')
