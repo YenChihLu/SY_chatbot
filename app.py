@@ -51,7 +51,7 @@ def webhook():
                             request.query=messaging_event["message"]["text"].encode('UTF8')
                             response = request.getresponse()
                             print (response.read())
-                            
+
                         else:
                             print 'message_text',messaging_event["message"]["text"].encode('UTF8')
                             print 'senderid',sender_id
