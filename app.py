@@ -50,7 +50,7 @@ def webhook():
                             req.lang = 'zh-TW'
                             req.query=messaging_event["message"]["text"].encode('UTF8')
                             response = req.getresponse()
-                            print (response.read())
+                            print response
                             answers = response["result"]["fulfillment"]["messages"][0]["speech"]
                             send_message(sender_id, answers)
 
