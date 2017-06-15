@@ -49,6 +49,7 @@ def webhook():
                             req = ai.text_request()
                             req.lang = 'zh-TW'
                             req.query=messaging_event["message"]["text"].encode('UTF8')
+                            req.resetContexts = False
                             response = req.getresponse()
                             print '------',response
                             print response.read(),type(response.read())
