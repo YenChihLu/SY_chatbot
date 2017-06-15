@@ -45,6 +45,9 @@ def webhook():
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
                         if messaging_event["message"]["text"].encode('UTF8') in ['天氣','幹','靠','你老師']:
+                            print 'message_text',messaging_event["message"]["text"].encode('UTF8')
+                            print 'senderid',sender_id
+                            print 'recipient_id',recipient_id
                             ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
                             req = ai.text_request()
                             req.resetContexts = False
@@ -54,7 +57,7 @@ def webhook():
                             #print '@@@@',response.read(),type(response.read())
                             nr = json.loads(response.read().decode('utf8')) #json.loads(response.read())#.decode('utf8'))
                             print '~~',nr
-                            answers = nr["result"]["fulfillment"]["messages"][0]["speech"]
+                            answers = nr["result"]["fulfillment"]["messages"][0]["speech"].encode('utf8')
                             send_message(sender_id, answers)
 
                         else:
