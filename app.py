@@ -94,7 +94,7 @@ def webhook():
                                 send_message(sender_id, '天氣Part 未知錯誤'+e+'壞掉了 再試一次~')
 
 
-                        elif messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師']:
+                        elif ['幹','靠','你老師'] in messaging_event["message"]["text"].encode('UTF8'):
                             print 'message_text',messaging_event["message"]["text"].encode('UTF8')
                             print 'senderid',sender_id
                             print 'recipient_id',recipient_id
