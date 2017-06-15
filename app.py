@@ -89,7 +89,7 @@ def webhook():
                                     send_message(sender_id, answers)
 
                                 else:
-                                    send_message(sender_id, '你沒給我正確的指令  ex:台北天氣,花蓮天氣')
+                                    send_message(sender_id, '給我正確的指令或區域  ex:台北天氣,花蓮天氣')
                             except Exception as e:
                                 send_message(sender_id, '天氣Part 未知錯誤'+e+'壞掉了 再試一次~')
 
