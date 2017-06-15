@@ -48,13 +48,15 @@ def webhook():
                             ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
                             req = ai.text_request()
                             req.resetContexts = False
-                            #req.lang = 'zh-TW'
+                            req.lang = 'zh-TW'
                             req.query=messaging_event["message"]["text"].encode('UTF8')
                             response = req.getresponse()
                             print '------',response
                             print response.read(),type(response.read())
-                            response = json.loads(response.read().decode('utf8'))
-                            answers = response["result"]["fulfillment"]["messages"][0]["speech"]
+                            response = response.read()
+                            response = json.loads(response.decode('utf8'))
+                            print '~~',response
+                            answers = 'aa'#response["result"]["fulfillment"]["messages"][0]["speech"]
                             send_message(sender_id, answers)
 
                         else:
