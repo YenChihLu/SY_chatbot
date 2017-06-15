@@ -80,7 +80,7 @@ def webhook():
                                 url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx&sort=time'
                                 res= requests.get(url,headers=headers)
                                 nres = json.loads(res.text.encode('utf8'))
-                                ans = nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']
+                                ans = (nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']).encode('utf8')
                                 print 'ans',ans
                                 answers = dis+'目前天氣 '+ans
                                 print 'answers',answers
