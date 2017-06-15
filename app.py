@@ -72,22 +72,26 @@ def webhook():
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
                         if '天氣' in messaging_event["message"]["text"].encode('UTF8'):
-                            dis = messaging_event["message"]["text"].encode('UTF8').split('天氣')[0]
-                            print 'dis',dis
-                            if Distribute.has_key(dis):
-                                SENDdis = Distribute[dis]
-                                print '縣市',SENDdis
-                                url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx&sort=time'
-                                res= requests.get(url,headers=headers)
-                                nres = json.loads(res.text.encode('utf8'))
-                                ans = (nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']).encode('utf8')
-                                print 'ans',ans
-                                answers = dis+'目前天氣 '+ans
-                                print 'answers',answers
-                                send_message(sender_id, answers)
+                            try:
+                                dis = messaging_event["message"]["text"].encode('UTF8').split('天氣')[0]
+                                dis = dis.replace(" ","")
+                                print 'dis',dis
+                                if Distribute.has_key(dis):
+                                    SENDdis = Distribute[dis]
+                                    print '縣市',SENDdis
+                                    url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx&sort=time'
+                                    res= requests.get(url,headers=headers)
+                                    nres = json.loads(res.text.encode('utf8'))
+                                    ans = (nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']).encode('utf8')
+                                    print 'ans',ans
+                                    answers = dis+' 目前天氣  '+ans
+                                    print 'answers',answers
+                                    send_message(sender_id, answers)
 
-                            else:
-                                send_message(sender_id, '你沒給我正確的指令  ex:台北天氣,花蓮天氣')
+                                else:
+                                    send_message(sender_id, '你沒給我正確的指令  ex:台北天氣,花蓮天氣')
+                            except Exception as e:
+                                send_message(sender_id, '天氣Part 未知錯誤'+e+'壞掉了 再試一次~')
 
 
                         elif messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師']:
