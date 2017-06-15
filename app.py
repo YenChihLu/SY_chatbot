@@ -11,7 +11,34 @@ import apiai
 app = Flask(__name__)
 
 CLIENT_ACCESS_TOKEN = '13563fb8a99b41c2a0d5d28f6425c0eb'
+Distribute={
+    '基隆':'基隆市',
+    '臺北':'臺北市',
+    '台北':'臺北市',
+    '新北':'新北市',
+    '桃園':'桃園市',
+    '新竹':'新竹市',
+    '苗栗':'苗栗縣',
+    '臺中':'臺中市',
+    '台中':'臺中市',
+    '彰化':'彰化縣',
+    '南投':'南投縣',
+    '雲林':'雲林縣',
+    '嘉義':'嘉義市',
+    '臺南':'臺南市',
+    '台南':'臺南市',
+    '高雄':'高雄市',
+    '屏東':'屏東縣',
+    '宜蘭':'宜蘭縣',
+    '花蓮':'花蓮縣',
+    '臺東':'臺東縣',
+    '台東':'臺東縣',
+    '澎湖':'澎湖縣',
+    '金門':'金門縣',
+    '馬祖':'連江縣',
+}
 
+headers={'Authorization':'CWB-FEE79599-878C-4A2A-8FDF-C9D51EFCB4EA'}
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -44,7 +71,26 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     #message_text = if messaging_event["message"]["text"].encode('UTF8') else ''  # the message's text
                     if "text" in messaging_event["message"].keys():
-                        if messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師'] or '天氣' in messaging_event["message"]["text"].encode('UTF8'):
+                        if '天氣' in messaging_event["message"]["text"].encode('UTF8'):
+                            dis = messaging_event["message"]["text"].encode('UTF8').split('天氣')[0]
+                            print 'dis',dis
+                            if Distribute.has_key(dis):
+                                SENDdis = Distribute[dis]
+                                print '縣市',SENDdis
+                                url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx&sort=time'
+                                res= requests.get(url,headers=headers)
+                                nres = json.loads(res.text.encode('utf8'))
+                                ans = nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']
+                                print 'ans',ans
+                                answers = dis+'目前天氣 '+ans
+                                print 'answers',answers
+                                send_message(sender_id, answers)
+
+                            else:
+                                send_message(sender_id, '請給正確區域')
+
+
+                        elif messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師'] or :
                             print 'message_text',messaging_event["message"]["text"].encode('UTF8')
                             print 'senderid',sender_id
                             print 'recipient_id',recipient_id
