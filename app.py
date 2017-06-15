@@ -87,10 +87,10 @@ def webhook():
                                 send_message(sender_id, answers)
 
                             else:
-                                send_message(sender_id, '請給正確區域')
+                                send_message(sender_id, '你沒給我正確的指令  ex:台北天氣,花蓮天氣')
 
 
-                        elif messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師'] or :
+                        elif messaging_event["message"]["text"].encode('UTF8') in ['幹','靠','你老師']:
                             print 'message_text',messaging_event["message"]["text"].encode('UTF8')
                             print 'senderid',sender_id
                             print 'recipient_id',recipient_id
