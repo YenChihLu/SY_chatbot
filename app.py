@@ -49,8 +49,10 @@ def webhook():
                             req = ai.text_request()
                             req.lang = 'zh-TW'
                             req.query=messaging_event["message"]["text"].encode('UTF8')
-                            response = req.getresponse()
+                            response = req.getrespons
                             print (response.read())
+                            answers = response["result"]["fulfillment"]["messages"][0]["speech"]
+                            send_message(sender_id, answers)
 
                         else:
                             print 'message_text',messaging_event["message"]["text"].encode('UTF8')
