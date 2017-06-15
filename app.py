@@ -52,9 +52,9 @@ def webhook():
                             req.query=messaging_event["message"]["text"].encode('UTF8')
                             response = req.getresponse()
                             #print '@@@@',response.read(),type(response.read())
-                            nr = response.read() #json.loads(response.read())#.decode('utf8'))
+                            nr = json.loads(response.read().decode('utf8')) #json.loads(response.read())#.decode('utf8'))
                             print '~~',nr
-                            answers = 'aa'#nr["result"]["fulfillment"]["messages"][0]["speech"]
+                            answers = nr["result"]["fulfillment"]["messages"][0]["speech"]
                             send_message(sender_id, answers)
 
                         else:
