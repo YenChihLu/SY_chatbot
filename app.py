@@ -53,7 +53,7 @@ def webhook():
                             response = req.getresponse()
                             print '------',response
                             print response.read(),type(response.read())
-                            response = json.loads(response.read())
+                            response = json.loads(response.read().decode('utf8'))
                             answers = response["result"]["fulfillment"]["messages"][0]["speech"]
                             send_message(sender_id, answers)
 
