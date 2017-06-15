@@ -51,8 +51,8 @@ def webhook():
                             req.query=messaging_event["message"]["text"].encode('UTF8')
                             response = req.getresponse()
                             print '------',response
-                            print response.read()
-                            response = json.loads(response.read()).decode('UTF8')
+                            print response.read(),type(response.read())
+                            #response = json.loads(response.read())
                             answers = response["result"]["fulfillment"]["messages"][0]["speech"]
                             send_message(sender_id, answers)
 
