@@ -90,7 +90,7 @@ def webhook():
                                     print 'ans',ans1
                                     ans2 = (nres['records']['location'][0]['weatherElement'][2]['time'][0]['parameter']['parameterName']).encode('utf8')
                                     print 'ans',ans2
-                                    answers = dis+' 目前天氣 '+ans0+'  最高溫:'+ans1+'度  最低溫:'+ans2+'度'
+                                    answers = dis+'目前天氣 '+ans0+'  最低溫:'+ans1+'度 最高溫:'+ans2+'度'
                                     print 'answers',answers
                                     send_message(sender_id, answers)
 
