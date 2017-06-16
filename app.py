@@ -75,7 +75,7 @@ def webhook():
                         if '天氣' in messaging_event["message"]["text"].encode('UTF8'):
                             try:
                                 msg = messaging_event["message"]["text"].encode('UTF8')
-                                b = "`~!@#$%^&*,./'-_=+()[]{}"
+                                b = " `~!@#$%^&*,./'-_=+()[]{}"
                                 for char in b:
                                     msg = msg.replace(char,"")
                                 dis = msg.split('天氣')[0]
