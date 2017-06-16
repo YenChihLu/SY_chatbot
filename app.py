@@ -79,7 +79,7 @@ def webhook():
                                 for char in b:
                                     msg = msg.replace(char,"")
                                 dis = msg.split('天氣')[0]
-
+                                print 'dis',dis
                                 if Distribute.has_key(dis):
                                     SENDdis = Distribute[dis]
                                     print '縣市',SENDdis
