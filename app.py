@@ -74,17 +74,23 @@ def webhook():
                         if '天氣' in messaging_event["message"]["text"].encode('UTF8'):
                             try:
                                 dis = messaging_event["message"]["text"].encode('UTF8').split('天氣')[0]
-                                dis = dis.replace(" ","")
+                                b = "`~!@#$%^&*,./'-_=+()[]{}"
+                                for char in b:
+                                    dis = dis.replace(char,"")
                                 print 'dis',dis
                                 if Distribute.has_key(dis):
                                     SENDdis = Distribute[dis]
                                     print '縣市',SENDdis
-                                    url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx&sort=time'
+                                    url='http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName='+SENDdis+'&elementName=Wx,MinT,MaxT&sort=time'
                                     res= requests.get(url,headers=headers)
                                     nres = json.loads(res.text.encode('utf8'))
-                                    ans = (nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']).encode('utf8')
-                                    print 'ans',ans
-                                    answers = dis+' 目前天氣  '+ans
+                                    ans0 = (nres['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName']).encode('utf8')
+                                    print 'ans',ans0
+                                    ans1 = (nres['records']['location'][0]['weatherElement'][1]['time'][0]['parameter']['parameterName']).encode('utf8')
+                                    print 'ans',ans1
+                                    ans2 = (nres['records']['location'][0]['weatherElement'][2]['time'][0]['parameter']['parameterName']).encode('utf8')
+                                    print 'ans',ans2
+                                    answers = dis+' 目前天氣 '+ans0+'  最高溫:'+ans1+'度  最低溫:'+ans2+'度'
                                     print 'answers',answers
                                     send_message(sender_id, answers)
 
