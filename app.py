@@ -37,6 +37,7 @@ Distribute={
     '金門':'金門縣',
     '馬祖':'連江縣',
 }
+nndis={}
 
 headers={'Authorization':'CWB-FEE79599-878C-4A2A-8FDF-C9D51EFCB4EA'}
 
@@ -73,11 +74,12 @@ def webhook():
                     if "text" in messaging_event["message"].keys():
                         if '天氣' in messaging_event["message"]["text"].encode('UTF8'):
                             try:
-                                dis = messaging_event["message"]["text"].encode('UTF8').split('天氣')[0]
+                                msg = messaging_event["message"]["text"].encode('UTF8')
                                 b = "`~!@#$%^&*,./'-_=+()[]{}"
                                 for char in b:
-                                    dis = dis.replace(char,"")
-                                print 'dis',dis
+                                    msg = msg.replace(char,"")
+                                dis = msg.split('天氣')[0]
+
                                 if Distribute.has_key(dis):
                                     SENDdis = Distribute[dis]
                                     print '縣市',SENDdis
