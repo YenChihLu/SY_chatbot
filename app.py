@@ -7,6 +7,7 @@ from random import randint
 import requests
 from flask import Flask, request
 import apiai
+import jieba
 
 app = Flask(__name__)
 
